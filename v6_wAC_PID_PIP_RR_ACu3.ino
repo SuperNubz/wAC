@@ -387,7 +387,7 @@ void loop()
 
     if ((inHome == 1 && (pressureValue >= setpointPressure)) || (inHome == 1 && angle >= 135)) //this block will execute when it hits the target pressureValue or reaches the hard limit angle
       {
-        Serial.println("ANOTHER!");
+        Serial.println("COMPRESSED!");
         readSliders();
         checkSwitchState();
 
@@ -445,7 +445,7 @@ void loop()
 
       if (inHome == 0 && (encoderAngle >= 0.98 * setpointAngle && encoderAngle <= 1.02 * setpointAngle)) // it will be executed after it hits the default 90 degree home position // +-5% margin of error and 0.95 & 1.05
       {
-        Serial.println("GOING HOME!");
+        Serial.println("GONE HOME!");
         readSliders();
         checkSwitchState();
         
@@ -502,7 +502,7 @@ void loop()
                  {
                   if (pressureValue <= previousPressureValue - 5 + invertedSensitivity)
                     {
-                      Serial.println("PATIENT BREATH TRIGGEREED");
+                      Serial.println("PATIENT BREATH TRIGGERRED measured peep 25%");
                       start_time_inhale = millis();
                       break;  // if true, it will cut the remaining relax time and ending the execution of this block and proceed to inHome == 1
                     }      
@@ -528,7 +528,7 @@ void loop()
   
                       if (pressureValue <= previousPressureValue - 5 + invertedSensitivity)
                         {
-                          Serial.println("PATIENT BREATH TRIGGEREED");
+                          Serial.println("PATIENT BREATH TRIGGEREED elapsed < relax");
                           start_time_inhale = millis();
                           break;  // if true, it will cut the remaining relax time and ending the execution of this block and proceed to inHome == 1
                         }
