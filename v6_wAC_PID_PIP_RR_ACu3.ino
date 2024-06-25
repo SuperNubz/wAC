@@ -331,7 +331,7 @@ void loop()
               {
                Serial.println("PATIENT BREATH TRIGGERED");
                 delay(50);
-               inHome == 1;
+               inHome = 1;
                start_time_inhale = millis();
               //  Serial.print("Start Inhale Time: ");
               //  Serial.println(start_time_inhale);
