@@ -315,9 +315,9 @@ void loop()
         {
          
          float previousPressureValue = pressureValue; // store the previous value
-         previousPressureValue = movingaverage(previousPressureValue);
+         // previousPressureValue = movingaverage(previousPressureValue);
          pressureValue = pressureSensor(); // read the new current value
-         pressureValue = movingaverage(pressureValue);
+         // pressureValue = movingaverage(pressureValue);
          int invertedSensitivity = 5 - sensitivityValue; // Here sensitivityValue is what you read from your slider
                                                          // Lower slider value -> higher invertedSensitivity -> less aggressive.
                                                          // Higher slider value -> lower invertedSensitivity -> more aggressive.
@@ -330,6 +330,7 @@ void loop()
           if (pressureValue <= previousPressureValue - 5 + invertedSensitivity)
               {
                Serial.println("PATIENT BREATH TRIGGERED");
+                delay(50);
                inHome == 1;
                start_time_inhale = millis();
               //  Serial.print("Start Inhale Time: ");
@@ -337,6 +338,30 @@ void loop()
                return;  
               }
         } 
+
+          //-------------------------------------------------------------------------
+          // float previousPressureValue = pressureValue; // store the previous value
+          //      pressureValue = pressureSensor();
+          //      int invertedSensitivity = 5 - sensitivityValue; // Here sensitivityValue is what you read from your slider
+          //                                                      // Lower slider value -> higher invertedSensitivity -> less aggressive.
+          //                                                      // Higher slider value -> lower invertedSensitivity -> more aggressive.
+          //      stop_time_marker = millis();
+          //      elapsed_time = stop_time_marker - start_time_marker;
+          //      count += 1;
+          //      PEEP2 += pressureValue;
+          //      readSliders();
+          //      checkSwitchState();    
+          //      if (assistSwitchState == true) // if the assist switch is turned on
+          //        {
+          //         if (pressureValue <= previousPressureValue - 5 + invertedSensitivity)
+          //           {
+          //             Serial.println("PATIENT BREATH TRIGGERRED measured peep 25%");
+          //             start_time_inhale = millis();
+          //             break;  // if true, it will cut the remaining relax time and ending the execution of this block and proceed to inHome == 1
+          //           }      
+          //        }             
+          //     }
+        //----------------------------------------------------------------------------------------------------------------------------------------------
       }
 //=================================================================================================
     // Serial.print("inHome:   ");
