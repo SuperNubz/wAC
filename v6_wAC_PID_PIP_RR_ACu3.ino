@@ -284,6 +284,7 @@ void loop()
 
     if (inHome == 0)
       {
+        Serial.println("inHome = 0, line 285");
         readSliders();
         checkSwitchState();
         setpointAngle = 100;  //always set the angle to 90 degrees as a default home position // BASIN PULIHAN
@@ -295,6 +296,7 @@ void loop()
 
     if (inHome == 1)
        {
+         Serial.println("inHome = 1, line 294");
          readSliders();
          checkSwitchState();
          pressureValue = pressureSensor();
@@ -309,6 +311,7 @@ void loop()
 
       if (inHome == 0) //ensuring that assist control feature is available throughout the duration of inHome == 0 / exhale phase
       {
+        Serial.println("inHome = 0, line 312");
         bool assistSwitchState = assistSwitchRead;
 
         if (assistSwitchState == true) 
@@ -370,11 +373,13 @@ void loop()
 
     if (error < 0)
     {
+      Serial.println("error < 0, line 376");
       digitalWrite(dir1, LOW);
       analogWrite(pwm1, pidTerm_scaled);
     }
      else
     {
+        Serial.println("error >= 0, line 380");
       digitalWrite(dir1, HIGH);
       analogWrite(pwm1, lastSpeed);
     }
@@ -436,10 +441,6 @@ void loop()
 //          Serial.println(Total_Inhale_Duration);
           plateau = (plateau / count); //calculating the final plateau pressureValue
           start_time_exhale = millis()- time_off_duration; // this marks the time as a starting point in going to home position since we set the inHome = 0 above
-
-        // while(encoderAngle < 90)
-        // digitalWrite(dir1, LOW);
-        // delay(3000);
       }
 
       if (inHome == 0 && (encoderAngle >= 0.98 * setpointAngle && encoderAngle <= 1.02 * setpointAngle)) // it will be executed after it hits the default 90 degree home position // +-5% margin of error and 0.95 & 1.05
@@ -452,8 +453,6 @@ void loop()
         inHome = 1;  // flipping the inHome state to 1, signaling that it should go to the setpoint after executing this if-statement
         end_time_exhale = millis(); //this is the time marker at the time it hits the condition above (setpoint)
         Total_Exhale_Duration = (end_time_exhale - start_time_exhale); 
-//        Serial.print("Total_Exhale_Duration");
-//        Serial.println(Total_Exhale_Duration);
 
         if (!IEControlSwitchRead) //this switch sets the default setting for I:E control
           {
@@ -512,6 +511,7 @@ void loop()
 
             if (assistSwitchState == true) // if the assist switch is turned on
               {
+                Serial.println("encoderAngle, assistControl ON, line 512");
                 readSliders();
                 checkSwitchState();
                 digitalWrite(dir1, LOW);
@@ -536,6 +536,7 @@ void loop()
 
             else if (assistSwitchState == false) // if the assist switch is turned off
               {
+                Serial.println("encoderAngle, assisControl OFF, line 539");
                 readSliders();
                 checkSwitchState(); 
                 digitalWrite(dir1, LOW);
